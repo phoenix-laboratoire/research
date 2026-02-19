@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Phoenix-Lab | Cabinet de recherche en santé publique et épidémiologie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-alt: #111729;
+      --accent: #ff6b35;
+      --accent-soft: rgba(255, 107, 53, 0.12);
+      --text: #f5f7ff;
+      --muted: #a4afc6;
+      --border: #1f2940;
+      --card: #151b2f;
+      --radius: 10px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b2340 0, #050814 55%, #02030a 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(5, 8, 20, 0.92), rgba(5, 8, 20, 0.75), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 20%, #ffb347, #ff6b35 45%, #b83227 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      font-size: 18px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-text span:first-child {
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-text span:last-child {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      padding: 6px 0;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-cta {
+        display: inline-flex;
+      }
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 14px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6b35, #ff9f43);
+      color: #050814;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-ghost {
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+      background: rgba(10, 15, 30, 0.7);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: var(--text);
+      background: rgba(15, 20, 40, 0.9);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    section {
+      margin-bottom: 72px;
+    }
+
+    /* Hero */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+      padding-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-kicker {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(30px, 4vw, 40px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #ff9f43, #ff6b35);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 22px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 20, 40, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, rgba(255, 107, 53, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(0, 180, 255, 0.18), transparent 55%),
+                  var(--card);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .hero-card-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .hero-chip {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(5, 8, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .metric {
+      padding: 10px 10px 9px;
+      border-radius: 12px;
+      background: rgba(5, 8, 20, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .hero-badge {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(5, 8, 20, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #2ecc71;
+      box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.25);
+    }
+
+    @media (max-width: 900px) {
+      .hero-card {
+        order: -1;
+      }
+      .hero-badge {
+        display: none;
+      }
+    }
+
+    /* Section titles */
+
+    .section-header {
+      margin-bottom: 22px;
+    }
+
+    .section-kicker {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    /* Services */
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .services-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .service-card {
+      background: rgba(10, 15, 30, 0.9);
+      border-radius: 14px;
+      padding: 14px 14px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .service-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .service-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .service-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Soumission */
+
+    .submit-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 26px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      .submit-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .submit-info {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .submit-highlight {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(10, 15, 30, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+    }
+
+    .submit-highlight strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .submit-form {
+      background: rgba(10, 15, 30, 0.96);
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(5, 8, 20, 0.9);
+      color: var(--text);
+      font-size: 13px;
+      padding: 8px 9px;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+      font-family: inherit;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #5f6a86;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+      background: rgba(5, 8, 20, 0.98);
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      background: rgba(5, 8, 20, 0.9);
+      padding: 10px 10px 9px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-label-main {
+      font-size: 13px;
+    }
+
+    .file-label-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .file-label-sub span {
+      color: #ffb347;
+    }
+
+    .form-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .confidentiality {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .confidentiality strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* À propos & contact */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 26px;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .about-text {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .about-text p + p {
+      margin-top: 10px;
+    }
+
+    .about-list {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .about-list li {
+      margin-left: 16px;
+      margin-bottom: 4px;
+    }
+
+    .contact-card {
+      background: rgba(10, 15, 30, 0.96);
+      border-radius: 16px;
+      padding: 14px 14px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 13px;
+    }
+
+    .contact-item {
+      margin-bottom: 6px;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .contact-value {
+      font-size: 13px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 16px 20px 26px;
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    footer .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-inner span {
+      opacity: 0.9;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+    }
+
+    .brand-logo-img {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand">
+        <!-- Remplace ce bloc par ton vrai logo si besoin -->
+        <img src="logo.jpeg" alt="Logo Phoenix-Lab" class="brand-logo-img">
+        <div class="brand-text">
+          <span>Cabinet de recherche</span>
+          <span>Phoenix-Lab</span>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#services">Services</a>
+        <a href="#soumission">Soumettre un document</a>
+        <a href="#apropos">À propos</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="btn btn-primary nav-cta" onclick="document.getElementById('soumission').scrollIntoView({behavior:'smooth'})">
+        Obtenir un devis
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Accueil / Hero -->
+    <section id="accueil" class="hero">
+      <div>
+        <div class="hero-kicker">Cabinet de recherche en santé publique et épidémiologie</div>
+        <h1 class="hero-title">
+          Expertise en <span>épidémiologie</span> et <span>biostatistique</span> au service des décisions en santé publique.
+        </h1>
+        <p class="hero-subtitle">
+          Phoenix-Lab conçoit, accompagne et analyse des études rigoureuses pour les institutions, ONG, chercheurs et entreprises
+          engagés dans l’amélioration de la santé des populations.
+        </p>
+        <div class="hero-meta">
+          <span>Basé à Lomé – Togo</span>
+          <span>Études épidémiologiques, analyses biostatistiques, évaluations d’interventions</span>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('soumission').scrollIntoView({behavior:'smooth'})">
+            Soumettre un protocole
+          </button>
+          <button class="btn btn-ghost" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+            Découvrir nos services
+          </button>
+        </div>
+        <div class="hero-note">
+          Réponse rapide avec devis personnalisé après analyse de votre demande et de vos documents.
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Résumé des expertises Phoenix-Lab">
+        <div class="hero-card-header">
+          <div class="hero-card-title">Phoenix-Lab | Lomé</div>
+          <div class="hero-chip">Santé publique &amp; épidémiologie</div>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric">
+            <div class="metric-label">Domaines clés</div>
+            <div class="metric-value">Épidémiologie, biostatistique, interventions</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Types de partenaires</div>
+            <div class="metric-value">Institutions, ONG, chercheurs, entreprises</div>
+          </div>
+        </div>
+        <div class="hero-card-footer">
+          <span>Conception d’études, analyses, évaluations, appui méthodologique.</span>
+          <span>phoenixlab.research@gmail.com</span>
+        </div>
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span>Accompagnement scientifique sur mesure</span>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+      <div class="section-header">
+        <div class="section-kicker">Services</div>
+        <h2 class="section-title">Nos domaines d’expertise</h2>
+        <p class="section-subtitle">
+          Phoenix-Lab intervient sur l’ensemble du cycle de vie d’un projet de recherche en santé publique :
+          de la conception à l’analyse et à l’évaluation.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <article class="service-card">
+          <div class="service-icon">📊</div>
+          <h3 class="service-title">Conception d’études épidémiologiques</h3>
+          <p class="service-text">
+            Appui à la définition des objectifs, hypothèses, plans d’échantillonnage, questionnaires et protocoles d’étude.
+          </p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon">📈</div>
+          <h3 class="service-title">Analyse biostatistique</h3>
+          <p class="service-text">
+            Analyses descriptives et inférentielles, modèles avancés, interprétation des résultats et préparation de rapports.
+          </p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon">🧹</div>
+          <h3 class="service-title">Gestion et qualité des données</h3>
+          <p class="service-text">
+            Nettoyage, structuration et contrôle qualité des bases de données pour garantir la robustesse des analyses.
+          </p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon">🧪</div>
+          <h3 class="service-title">Évaluation d’interventions</h3>
+          <p class="service-text">
+            Conception et analyse d’évaluations d’impact, de processus et de mise en œuvre en santé publique.
+          </p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon">📄</div>
+          <h3 class="service-title">Appui méthodologique &amp; rédaction</h3>
+          <p class="service-text">
+            Relecture scientifique, structuration de rapports, articles, mémoires et documents techniques.
+          </p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon">🤝</div>
+          <h3 class="service-title">Accompagnement sur mesure</h3>
+          <p class="service-text">
+            Collaboration adaptée à vos besoins spécifiques, de la consultation ponctuelle à l’appui continu sur projet.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Soumission de document -->
+    <section id="soumission">
+      <div class="section-header">
+        <div class="section-kicker">Devis</div>
+        <h2 class="section-title">Soumettre un protocole ou un document</h2>
+        <p class="section-subtitle">
+          Décrivez votre besoin et téléversez vos documents (protocole, plan d’analyse, cahier des charges, etc.)
+          pour recevoir un devis personnalisé.
+        </p>
+      </div>
+
+      <div class="submit-layout">
+        <div class="submit-info">
+          <p>
+            Phoenix-Lab accompagne les chercheurs, institutions, ONG et entreprises dans la conception, l’analyse
+            et l’évaluation de projets en santé publique. Chaque demande est étudiée avec attention afin de proposer
+            un accompagnement adapté à vos objectifs, vos délais et vos contraintes.
+          </p>
+          <div class="submit-highlight">
+            <strong>Ce formulaire permet de :</strong><br />
+            – Comprendre le contexte de votre projet<br />
+            – Identifier les services les plus pertinents (conception, analyse, évaluation, etc.)<br />
+            – Estimer le temps de travail et établir un devis transparent
+          </div>
+        </div>
+
+        <form class="submit-form" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="access_key" value="6d0d76b4-0d9a-406a-9c59-fd7a1a2f5bde">
+            <input type="hidden" name="subject" value="Nouvelle demande de devis - Phoenix-Lab">
+            <input type="hidden" name="from_name" value="Phoenix-Lab Website">
+            <input type="hidden" name="redirect" value="https://phoenix-laboratoire.github.io/research/success.html">
+            <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom et prénom</label>
+              <input id="nom" name="nom" type="text" placeholder="Votre nom complet" required />
+            </div>
+            <div class="form-group">
+              <label for="organisation">Organisation / Institution</label>
+              <input id="organisation" name="organisation" type="text" placeholder="Nom de l’organisation" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="vous@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="telephone">Téléphone (optionnel)</label>
+              <input id="telephone" name="telephone" type="tel" placeholder="+228 ..." />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="service">Type de service souhaité</label>
+            <select id="service" name="service" required>
+              <option value="">Sélectionner un service</option>
+              <option value="conception">Conception d’étude</option>
+              <option value="analyse">Analyse biostatistique</option>
+              <option value="donnees">Nettoyage / gestion de données</option>
+              <option value="evaluation">Évaluation d’intervention</option>
+              <option value="relecture">Relecture / appui méthodologique</option>
+              <option value="autre">Autre (préciser dans la description)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description du besoin</label>
+            <textarea id="description" name="description" placeholder="Décrivez brièvement votre projet, vos objectifs, vos données disponibles, vos délais…"></textarea>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary">
+              Envoyer ma demande / Obtenir un devis
+            </button>
+            <p class="confidentiality">
+              <strong>Confidentialité :</strong> tous les documents soumis sont traités de manière strictement confidentielle.
+              Ils ne sont utilisés que pour l’analyse de votre demande et l’établissement du devis, et ne sont jamais partagés
+              avec des tiers.
+            </p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- À propos & contact -->
+    <section id="apropos">
+      <div class="section-header">
+        <div class="section-kicker">À propos</div>
+        <h2 class="section-title">Phoenix-Lab, cabinet de recherche</h2>
+        <p class="section-subtitle">
+          Une expertise scientifique au croisement de l’épidémiologie, de la biostatistique et de l’évaluation
+          des interventions de santé publique.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Phoenix-Lab est un cabinet de recherche basé à Lomé (Togo), spécialisé dans la conception et la conduite
+            d’études épidémiologiques, l’analyse biostatistique des données et l’évaluation des interventions de santé publique.
+          </p>
+          <p>
+            Nous travaillons en collaboration avec des institutions publiques, des ONG, des universités et des entreprises
+            pour produire des données robustes et des analyses fiables, au service de décisions éclairées.
+          </p>
+          <ul class="about-list">
+            <li>Approche rigoureuse, transparente et documentée</li>
+            <li>Adaptation aux contextes locaux et aux réalités de terrain</li>
+            <li>Valorisation des résultats : rapports, articles, supports de décision</li>
+          </ul>
+        </div>
+
+        <aside id="contact" class="contact-card">
+          <div class="contact-item">
+            <div class="contact-label">Localisation</div>
+            <div class="contact-value">Lomé – Togo</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <div class="contact-value">phoenixlab.research@gmail.com</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Domaine</div>
+            <div class="contact-value">Santé publique, épidémiologie, biostatistique, évaluation d’interventions</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Prendre contact</div>
+            <div class="contact-value">
+              Pour toute question ou demande spécifique, vous pouvez nous écrire directement par email
+              ou utiliser le formulaire de soumission pour un devis détaillé.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© Phoenix-Lab – Cabinet de recherche en santé publique et épidémiologie – Lomé, Togo</span>
+      <div class="footer-links">
+        <a href="#accueil">Haut de page</a>
+        <a href="#soumission">Obtenir un devis</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const fileInput = document.getElementById('fichier');
+    const fileLabel = document.getElementById('fileLabel');
+
+    if (fileInput && fileLabel) {
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files && fileInput.files.length > 0) {
+          fileLabel.textContent = fileInput.files[0].name;
+        } else {
+          fileLabel.textContent = 'Cliquez pour sélectionner un fichier';
+        }
+      });
+    }
+
+  </script>
+</body>
+</html>
