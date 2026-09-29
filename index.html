@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phoenix-Lab | Cabinet de recherche en santé publique et épidémiologie</title>
+<meta name="description" content="Phoenix-Lab, à Lomé (Togo) : études épidémiologiques, biostatistique, informatique biomédicale et évaluation d'interventions de santé publique.">
+<link rel="icon" href="logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12332d; --ink-soft:#4a625c; --paper:#f6f8f7; --white:#fff;
+  --line:#d3ddd9; --sun:#e2a72e; --laterite:#b4452b;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:'Public Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.6;font-size:1.0625rem}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:88px 0}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15}
+h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:16px;max-width:20ch}
+.lead{color:var(--ink-soft);max-width:60ch}
+
+header{position:sticky;top:0;z-index:10;background:rgba(246,248,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-weight:600;font-size:1.25rem}
+.brand img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+nav{display:flex;gap:22px;align-items:center;font-size:.95rem}
+nav a{text-decoration:none;color:var(--ink-soft)}
+nav a:hover{color:var(--ink)}
+.btn{display:inline-block;background:var(--ink);color:var(--white);padding:12px 22px;border-radius:6px;text-decoration:none;font-weight:600;border:0;font:inherit;font-weight:600;cursor:pointer}
+.btn:hover{background:#0b211d}
+.btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+nav .btn{padding:8px 16px;color:var(--white)}
+
+/* Hero */
+.hero{padding:72px 0 0;background:var(--white);border-bottom:1px solid var(--line)}
+.hero h1{font-size:clamp(2.2rem,5.5vw,3.9rem);max-width:19ch;margin-bottom:22px}
+.hero p{font-size:1.15rem;color:var(--ink-soft);max-width:56ch;margin-bottom:30px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:48px}
+.curve{display:block;width:100%;height:auto;margin-top:8px}
+.curve .bar{fill:var(--ink);transform-origin:bottom;transform-box:fill-box;animation:grow .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*35ms)}
+.curve .peak{fill:var(--sun)}
+.curve text{font:500 12px var(--sans);fill:var(--ink-soft)}
+@keyframes grow{from{transform:scaleY(0)}}
+@media (prefers-reduced-motion:reduce){.curve .bar{animation:none}html{scroll-behavior:auto}}
+
+/* Services */
+.services ul{list-style:none;padding:0;margin-top:40px;border-top:1px solid var(--line)}
+.services li{display:grid;grid-template-columns:minmax(200px,1fr) 2fr;gap:8px 40px;padding:24px 0;border-bottom:1px solid var(--line)}
+.services h3{font-size:1.35rem}
+.services p{color:var(--ink-soft)}
+
+/* Informatique biomédicale */
+.biomed{border-top:1px solid var(--line)}
+.biomed .tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;list-style:none;padding:0}
+.biomed .tools li{font-size:.9rem;padding:4px 12px;border-radius:99px;background:var(--ink);color:var(--white)}
+
+/* Équipe */
+.team{background:var(--white);border-block:1px solid var(--line)}
+.members{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:48px 40px;margin-top:48px}
+.member .photo{width:100%;aspect-ratio:4/5;object-fit:cover;background:linear-gradient(160deg,#dfe9e5,#c5d6d0);display:grid;place-items:center;font-family:var(--serif);font-size:3.5rem;color:var(--ink);margin-bottom:18px;border-bottom:4px solid var(--sun)}
+.member h3{font-size:1.4rem}
+.member .role{color:var(--laterite);font-weight:600;font-size:.95rem;margin:2px 0 10px}
+.member p{color:var(--ink-soft);font-size:1rem}
+.tags{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tags li{font-size:.85rem;border:1px solid var(--line);padding:2px 10px;border-radius:99px;color:var(--ink-soft)}
+.member .links{margin-top:14px;font-size:.95rem}
+.member .links a{margin-right:14px}
+
+/* Formulaire */
+.quote{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}
+.quote ul{margin:20px 0 0 18px;color:var(--ink-soft)}
+form{display:grid;gap:16px;background:var(--white);border:1px solid var(--line);padding:28px;border-radius:8px}
+label{display:grid;gap:6px;font-weight:600;font-size:.95rem}
+input,select,textarea{font:inherit;font-weight:400;padding:11px 12px;border:1px solid #b9c7c2;border-radius:6px;background:var(--white);color:var(--ink)}
+textarea{min-height:130px;resize:vertical}
+.note{font-size:.88rem;color:var(--ink-soft)}
+
+/* À propos + contact */
+.about{background:var(--ink);color:var(--white)}
+.about .lead{color:#c3d4ce}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,.2)}
+.facts dt{color:var(--sun);font-weight:600;font-size:.95rem}
+.facts dd{margin:4px 0 0}
+.facts a{color:var(--white)}
+footer{padding:28px 0;font-size:.9rem;color:var(--ink-soft)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+@media (max-width:820px){
+  nav a:not(.btn){display:none}
+  section{padding:64px 0}
+  .services li,.quote{grid-template-columns:1fr}
+  .quote{gap:32px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#accueil"><img src="logo.jpeg" alt="Logo Phoenix-Lab">Phoenix-Lab</a>
+    <nav aria-label="Navigation principale">
+      <a href="#services">Services</a>
+      <a href="#informatique">Informatique biomédicale</a>
+      <a href="#equipe">Équipe</a>
+      <a href="#apropos">À propos</a>
+      <a href="#contact">Contact</a>
+      <a class="btn" href="#devis">Obtenir un devis</a>
+    </nav>
+  </div>
+</header>
+
+<main id="accueil">
+  <div class="hero">
+    <div class="wrap">
+      <h1>Des données solides pour des décisions de santé publique.</h1>
+      <p>Phoenix-Lab conçoit, analyse et évalue des études épidémiologiques et construit les outils numériques qui les font fonctionner, pour les institutions, ONG, chercheurs et entreprises. Basé à Lomé, au Togo.</p>
+      <div class="actions">
+        <a class="btn" href="#devis">Soumettre un protocole</a>
+        <a class="btn alt" href="#services">Voir nos services</a>
+      </div>
+      <!-- Courbe épidémique décorative -->
+      <svg class="curve" viewBox="0 0 1032 150" role="img" aria-label="Courbe épidémique illustrative : les cas augmentent jusqu'à un pic puis diminuent">
+        <g id="bars"></g>
+        <line x1="0" y1="121.5" x2="1032" y2="121.5" stroke="#12332d" stroke-width="1.5"/>
+        <text x="0" y="142">Semaine 1</text>
+        <text x="1032" y="142" text-anchor="end">Semaine 40</text>
+      </svg>
+    </div>
+  </div>
+
+  <section class="services" id="services">
+    <div class="wrap">
+      <h2>De la conception à l'évaluation</h2>
+      <p class="lead">Nous intervenons sur tout le cycle d'un projet de recherche en santé publique.</p>
+      <ul>
+        <li><h3>Conception d'études épidémiologiques</h3><p>Objectifs, hypothèses, plans d'échantillonnage, questionnaires et protocoles.</p></li>
+        <li><h3>Analyse biostatistique</h3><p>Analyses descriptives et inférentielles, modèles avancés, interprétation des résultats et rapports.</p></li>
+        <li><h3>Gestion et qualité des données</h3><p>Nettoyage, structuration et contrôle qualité pour des analyses fiables.</p></li>
+        <li><h3>Évaluation d'interventions</h3><p>Évaluations d'impact, de processus et de mise en œuvre.</p></li>
+        <li><h3>Appui méthodologique et rédaction</h3><p>Relecture scientifique, rapports, articles, mémoires et documents techniques.</p></li>
+        <li><h3>Accompagnement sur mesure</h3><p>Une consultation ponctuelle ou un appui continu, selon votre projet.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="services biomed" id="informatique">
+    <div class="wrap">
+      <h2>Informatique biomédicale</h2>
+      <p class="lead">Une bonne étude a besoin d'outils de collecte, de stockage et d'analyse fiables. Nous les concevons avec vous, du terrain au tableau de bord.</p>
+      <ul>
+        <li><h3>Systèmes d'information de santé</h3><p>Conception, paramétrage et déploiement de systèmes de collecte et de gestion des données de santé, y compris avec DHIS2.</p></li>
+        <li><h3>Collecte de données numérique</h3><p>Questionnaires électroniques et enquêtes sur tablette ou téléphone, avec contrôles de saisie intégrés.</p></li>
+        <li><h3>Interopérabilité et bases de données</h3><p>Structuration, entrepôts de données, échanges entre systèmes et standards de santé (HL7 FHIR).</p></li>
+        <li><h3>Tableaux de bord et visualisation</h3><p>Indicateurs de suivi lisibles pour les décideurs, mis à jour à mesure que les données arrivent.</p></li>
+        <li><h3>Analyse avancée et apprentissage automatique</h3><p>Modèles prédictifs et exploitation de données de santé complexes, avec une interprétation claire des résultats.</p></li>
+      </ul>
+      <ul class="tools" aria-label="Outils utilisés">
+        <li>DHIS2</li><li>KoboToolbox</li><li>REDCap</li><li>R</li><li>Python</li><li>SQL</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="team" id="equipe">
+    <div class="wrap">
+      <h2>Les personnes derrière Phoenix-Lab</h2>
+      <p class="lead">Une équipe d'épidémiologistes et de biostatisticiens qui connaît le terrain.</p>
+      <div class="members">
+
+        <!-- Copiez ce bloc <article> pour ajouter un membre. Photo : remplacez le <div class="photo"> par
+             <img class="photo" src="team/prenom-nom.jpg" alt="Prénom Nom"> -->
+        <article class="member">
+          <div class="photo" aria-hidden="true">PN</div>
+          <h3>[Prénom Nom]</h3>
+          <p class="role">Fondateur·rice, épidémiologiste</p>
+          <p>[Deux ou trois phrases : parcours, diplômes, années d'expérience, projets marquants.]</p>
+          <ul class="tags"><li>Épidémiologie</li><li>Conception d'études</li></ul>
+          <p class="links"><a href="mailto:phoenixlab.research@gmail.com">Écrire</a><a href="#">LinkedIn</a></p>
+        </article>
+
+        <article class="member">
+          <div class="photo" aria-hidden="true">PN</div>
+          <h3>[Prénom Nom]</h3>
+          <p class="role">Biostatisticien·ne</p>
+          <p>[Deux ou trois phrases : spécialités statistiques, logiciels maîtrisés, expérience.]</p>
+          <ul class="tags"><li>Modélisation</li><li>R</li><li>Stata</li></ul>
+          <p class="links"><a href="mailto:phoenixlab.research@gmail.com">Écrire</a><a href="#">LinkedIn</a></p>
+        </article>
+
+        <article class="member">
+          <div class="photo" aria-hidden="true">PN</div>
+          <h3>[Prénom Nom]</h3>
+          <p class="role">Informaticien·ne biomédical·e</p>
+          <p>[Deux ou trois phrases : collecte, nettoyage, contrôle qualité, outils utilisés.]</p>
+          <ul class="tags"><li>Systèmes d'information</li><li>Qualité des données</li></ul>
+          <p class="links"><a href="mailto:phoenixlab.research@gmail.com">Écrire</a><a href="#">LinkedIn</a></p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="devis">
+    <div class="wrap quote">
+      <div>
+        <h2>Soumettre un protocole ou un document</h2>
+        <p class="lead">Décrivez votre besoin. Nous étudions votre demande et répondons rapidement avec un devis personnalisé.</p>
+        <ul>
+          <li>Nous comprenons le contexte de votre projet</li>
+          <li>Nous identifions les services adaptés</li>
+          <li>Nous estimons le temps de travail et établissons un devis transparent</li>
+        </ul>
+        <p class="note" style="margin-top:20px">Tous les documents sont traités de façon strictement confidentielle et ne sont jamais partagés avec des tiers.</p>
+      </div>
+      <form id="devis-form">
+        <label>Nom et prénom<input name="nom" required autocomplete="name"></label>
+        <label>Organisation / institution<input name="org" autocomplete="organization"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Téléphone (optionnel)<input type="tel" name="tel" autocomplete="tel"></label>
+        <label>Service souhaité
+          <select name="service" required>
+            <option value="">Choisir un service</option>
+            <option>Conception d'étude</option>
+            <option>Analyse biostatistique</option>
+            <option>Nettoyage / gestion de données</option>
+            <option>Évaluation d'intervention</option>
+            <option>Informatique biomédicale / système d'information</option>
+            <option>Relecture / appui méthodologique</option>
+            <option>Autre (à préciser dans la description)</option>
+          </select>
+        </label>
+        <label>Description du besoin<textarea name="desc" required></textarea></label>
+        <button class="btn" type="submit">Envoyer ma demande</button>
+        <p class="note">Le bouton ouvre votre messagerie avec la demande préremplie. Joignez vos documents à l'email.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="about" id="apropos">
+    <div class="wrap">
+      <h2>Un cabinet ancré au Togo, entre santé publique et numérique</h2>
+      <p class="lead">À la croisée de l'épidémiologie, de la biostatistique et de l'informatique biomédicale, Phoenix-Lab travaille avec des institutions publiques, des ONG, des universités et des entreprises pour produire des données robustes et des analyses fiables.</p>
+      <p class="lead" style="margin-top:12px">Notre approche est rigoureuse, transparente et documentée. Nous l'adaptons aux contextes locaux et aux réalités du terrain, et nous valorisons les résultats : rapports, articles, supports de décision.</p>
+      <dl class="facts" id="contact">
+        <div><dt>Localisation</dt><dd>Lomé, Togo</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:phoenixlab.research@gmail.com">phoenixlab.research@gmail.com</a></dd></div>
+        <div><dt>Domaines</dt><dd>Santé publique, épidémiologie, biostatistique, informatique biomédicale, évaluation d'interventions</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Phoenix-Lab, cabinet de recherche en santé publique et épidémiologie, Lomé, Togo</span>
+    <a href="#accueil">Haut de page</a>
+  </div>
+</footer>
+
+<script>
+// Courbe épidémique du hero
+(function(){
+  var g=document.getElementById('bars'),n=40,w=1032/n,html='';
+  for(var i=0;i<n;i++){
+    var x=i/(n-1),v=Math.exp(-Math.pow((x-.42)/.2,2))*.92+.06*Math.sin(i*1.7)+.08;
+    var h=Math.max(6,v*112),peak=i===Math.round(.42*(n-1));
+    html+='<rect class="bar'+(peak?' peak':'')+'" style="--i:'+i+'" x="'+(i*w+2)+'" y="'+(121.5-h)+'" width="'+(w-4)+'" height="'+h+'"/>';
+  }
+  g.innerHTML=html;
+})();
+// Formulaire : ouvre la messagerie avec la demande préremplie
+document.getElementById('devis-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=new FormData(this);
+  var body='Nom : '+f.get('nom')+'\nOrganisation : '+f.get('org')+'\nEmail : '+f.get('email')+'\nTéléphone : '+f.get('tel')+'\nService : '+f.get('service')+'\n\n'+f.get('desc');
+  location.href='mailto:phoenixlab.research@gmail.com?subject='+encodeURIComponent('Demande de devis : '+f.get('service'))+'&body='+encodeURIComponent(body);
+});
+</script>
+</body>
+</html>
